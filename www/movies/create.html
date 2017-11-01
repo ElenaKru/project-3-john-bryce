@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h2> Create Movie </h2>
+
+    <div class="form-group">
+        <label class="input-description">NAME:</label>
+        <input type="text" class="form-control" name="movieName" id="movieName" placeholder="New name">
+    </div>
+
+    <div class="form-group">
+        <label  class="input-description">DIRECTOR:</label>
+        <select id="director" class="form-control" name="director" placeholder="Select Director" ></select>
+    </div>
+    <div class="form-group">
+        <br><br>
+        <button id="create" class="btnAdd btn btn-primary" name="action">Create Movie</button>
+    </div>
+    <div id="result"></div>
+
+    <script src="movie.js"></script>
+    <script src="../directors/director.js"></script>
+    <script>
+        var m = moviesModule();
+        var d = directorsModule();
+        $( document ).ready(function() {
+            d.getDirectorsIds(function(result){
+                var res = JSON.parse(result);
+                $.each( res, function() {
+                    $('#director').append($('<option>', {
+                        value: this.id,
+                        text: this.id
+                    }));
+                });
+            });
+
+            $('#create').click(function(){
+               m.createMovie();
+            });
+
+            });
+
+    </script>
+</body>
+</html>

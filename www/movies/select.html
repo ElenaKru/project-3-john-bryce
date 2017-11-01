@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Read</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <h2> Select Movie </h2>
+
+    <label class="input-description">MOVIE:</label>
+    <input type="text" class="form-control" name="movieID" placeholder="Movie ID">
+    <button class="btnUpdate btn btn-primary" name="action" value="GetMovie">Get movie</button>
+    <div id="result">
+    </div>
+
+    <script src="movie.js"></script>
+    <script>
+        document.getElementsByTagName('button')[0].addEventListener('click', function() {
+            var res = m.getMovie(document.getElementsByTagName('input')[0].value, function (res) {
+                res = JSON.parse(res);
+                console.log(res);
+                if (res.id) {
+                    document.getElementsByTagName('div')[0].innerHTML =
+                        "<span>" + "ID: " + res.id + "</span><br><span>" + "NAME: " + res.name + "</span><br><span>" + "DIRECTOR: " + res.d_id + "</span>";
+                } else {
+                    $.each(res, function () {
+                        $('#result').append('ID: ' + this.id + ' NAME: ' + this.name + ' DIRECTOR: ' + this.d_id + '<br/>');
+                    });
+                }
+            });
+        });
+        var m = moviesModule();
+
+    </script>
+</body>
+</html>

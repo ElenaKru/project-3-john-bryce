@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+</head>
+<body onload="">
+    <h2> Delete Movie </h2>
+
+    <div class="form-group">
+        <label class="input-description">ID:</label>
+        <select id="movieID" class="form-control" name="movieID" placeholder="Select Movie" ></select>
+        <!--<input type="number" class="form-control" name="movieID" placeholder="ID">-->
+    </div>
+    <div class="form-group">
+        <br><br>
+        <button id="delete" class="btnDelete btn btn-primary" name="action" value="DeleteMovie">Delete Movie</button>
+    </div>
+    <div id="result"></div>
+
+    <script src="movie.js"></script>
+    <script>
+        var m = moviesModule();
+//        var d = directorsModule();
+        $( document ).ready(function() {
+            m.getMoviesIds(function(result){
+
+                var res = JSON.parse(result);
+                $.each( res, function() {
+                    $('#movieID').append($('<option>', {
+                        value: this.id,
+                        text: this.id
+                    }));
+                });
+            });
+
+            $('#delete').click(function(){
+                m.deleteMovie();
+            });
+
+        });
+
+    </script>
+</body>
+</html>
