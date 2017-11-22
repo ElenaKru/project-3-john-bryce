@@ -1,0 +1,22 @@
+<div id="nav-bar-tpl" >
+    <div class="menu">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <img src="images/theschool.jpg" class="img-fluid img-thumbnail"  width="170" height="170" alt="Responsive image">
+                <a id="school-link" class="linkAdminMenu" href="#">School</a>
+                <!-- if role of user is not sales show link Administration -->
+                {{#viewAdminLink}}
+                <a id="administration-link" class="linkAdminMenu" href="#">Administration</a>
+                {{/viewAdminLink}}
+            </div>
+            <div>
+                <ul class="nav navbar-nav navbar-right">
+                    <h4><span id ="user" class="largenav">Name: {{ name }} Role: {{role}}</span></h4>
+                    <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><img id="admr-image" src="images/{{role}}.jpg" width="100" height="100" ></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div>

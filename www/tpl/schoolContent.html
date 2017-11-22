@@ -1,0 +1,163 @@
+<div id="resultCourse-tpl" >
+    <div id="resultCourse">
+        <b><u>Courses</u></b> <button id="addCourse">+</button><br><br> <!--{{courses.length}} -->
+
+        {{#courses}}
+        <span class="courseItem" data-course-id="{{id}}" id="courseItem-{{id}}">
+            {{#image}}
+            <img src="../uploads/{{image}}" height="15">
+            {{/image}}
+            {{^image}}
+            <img src="../uploads/no-image.png" height="15">
+            {{/image}}
+            NAME: {{name}} <br>
+        </span>
+        {{/courses}}
+    </div>
+</div>
+
+
+<div id="resultStudent-tpl" >
+    <div id="resultStudent">
+        <b><u>Students</u></b> <button id="addStudent">+</button><br><br>
+
+        {{#students}}
+        <span class="studentItem" data-student-id="{{id}}" id="studentItem-{{id}}">
+            {{#image}}
+            <img src="../uploads/{{image}}" height="15">
+            {{/image}}
+            {{^image}}
+            <img src="../uploads/no-image.png" height="15">
+            {{/image}}
+            NAME: {{name}} PHONE: {{phone}} <br>
+        </span>
+        {{/students}}
+    </div>
+    </div>
+</div>
+
+
+<div id="mainPanelCourseResume-tpl">
+    Courses: {{coursesCount}}
+</div>
+
+
+<div id="mainPanelStudentResume-tpl">
+    Students: {{studentsCount}}
+</div>
+
+
+<div id="mainPanelCourseContent-tpl">
+    <button id="editCourse" data-course-id="{{id}}">Edit</button><br><br>
+    Course Content: <br>
+    {{#course.image}}
+    <img src="../uploads/{{course.image}}" height="45">
+    {{/course.image}}
+    {{^course.image}}
+    <img src="../uploads/no-image.png" height="45">
+    {{/course.image}}
+    NAME: {{course.name}} DESCRIPTION: {{course.description}}<br/>
+    <h3>Students:</h3>
+<ul>
+    {{#course.students}}
+    <li>
+    {{#image}}
+    <img src="../uploads/{{image}}" height="45">
+    {{/image}}
+    {{^image}}
+    <img src="../uploads/no-image.png" height="45">
+    {{/image}}
+    {{name}}
+    </li>
+    {{/course.students}}
+</ul>
+</div>
+
+
+<div id="mainPanelStudentContent-tpl">
+    <button id="editStudent" data-student-id="{{id}}">Edit</button><br><br>
+    Student Content: <br>
+    {{#student.image}}
+    <img src="../uploads/{{student.image}}" height="45">
+    {{/student.image}}
+    {{^student.image}}
+    <img src="../uploads/no-image.png" height="45">
+    {{/student.image}}
+    NAME: {{student.name}} PHONE: {{student.phone}} EMAIL: {{student.email}}<br/>
+
+</div>
+
+
+<div id="addCourseTpl">
+    <form name="addCourseForm" id="addCourseForm" action="../api/api.php" method="{{method}}" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{{course.id}}">
+        <input type="hidden" name="ctrl" value="course">
+        <input type="hidden" name="ajax" value="false">
+        <div class="form-group">
+            <label for="courseName">Name:</label>
+            <input id="courseName" type="text" class="form-control" name="name" required value="{{course.name}}">
+        </div>
+
+        <div class="form-group">
+            <label for="courseDescription">Description:</label>
+            <input id="courseDescription" type="text" class="form-control" name="description" required value="{{course.description}}">
+        </div>
+
+        <div class="form-group">
+            <label for="courseImage">Image:</label>
+            {{#course.image}}
+            <img src="../uploads/{{course.image}}" height="45">
+            {{/course.image}}
+            <input id="courseImage" type="file" name="image" accept="image/jpg, image/jpeg, image/png, image/gif">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" value="add" id="createCourse" class="btnAdd btn btn-primary" name="action">Save</button>
+        </div>
+
+    </form>
+    <form name="deleteCourseForm" id="deleteCourseForm" action="../api/api.php" method="POST"> <!-- DELETE METHOD IS NOT SUPPORTED -->
+        <input type="hidden" name="id" value="{{course.id}}">
+        <input type="hidden" name="ctrl" value="course">
+        <input type="hidden" name="ajax" value="false">
+        <div class="form-group">
+        <button type="submit" value="delete" id="deleteCourse" class="btnAdd btn btn-primary" name="action">Delete</button>
+        </div>
+    </form>
+</div>
+
+
+<div id="addStudentTpl">
+    <form name="addStudentForm" id="addStudentForm" action="../api/api.php" method="{{method}}" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{{student.id}}">
+        <input type="hidden" name="ctrl" value="student">
+        <input type="hidden" name="ajax" value="false">
+        <div class="form-group">
+            <label for="studentName">Name:</label>
+            <input id="studentName" type="text" class="form-control" name="name" required value="{{student.name}}">
+        </div>
+
+        <div class="form-group">
+            <label for="studentPhone">Phone:</label>
+            <input id="studentPhone" type="text" class="form-control" name="phone" required value="{{student.phone}}">
+        </div>
+
+        <div class="form-group">
+            <label for="studentEmail">Email:</label>
+            <input id="studentEmail" type="text" class="form-control" name="email" required value="{{student.email}}">
+        </div>
+
+        <div class="form-group">
+            <label for="studentImage">Image:</label>
+            {{#student.image}}
+            <img src="../uploads/{{student.image}}" height="45">
+            {{/student.image}}
+            <input id="studentImage" type="file" name="image" accept="image/jpg, image/jpeg, image/png, image/gif">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" value="add" id="createStudent" class="btnAdd btn btn-primary" name="action">Save</button>
+            <button type="submit" value="delete" id="deleteStudent" class="btnAdd btn btn-primary" name="action">Delete</button>
+        </div>
+    </form>
+</div>

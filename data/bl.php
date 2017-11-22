@@ -40,7 +40,9 @@ class BL {
             $strUpdate .= $key . ' = :' . $key . ',';
         }
         $strUpdate = substr($strUpdate, 0, -1);
-        $query = 'UPDATE ' .  $table . ' SET ' . $strUpdate . ' WHERE id = :id';
+       $query = 'UPDATE ' .  $table . ' SET ' . $strUpdate . ' WHERE id = :id';
+//        var_dump($query);
+//        die();
         $stmt = $db->prepare($query);
         $data['id'] = $id;
         $stmt->execute($data);
@@ -76,6 +78,19 @@ class BL {
 
     }
 
+    public static function getStudentsByCourse($id){
+
+        $connection = DAL::getInstance();
+        $db = $connection->getDB();
+
+        $stmt = $db->prepare('SELECT student.*
+                                FROM student
+                                INNER JOIN courses_students ON student.id = courses_students.student
+                                WHERE courses_students.course = :course');
+        $stmt->execute(['course' => $id]);
+        return $stmt->fetchAll();
+    }
+
     public static function getAllIds($table){
 
         $connection = DAL::getInstance();
@@ -101,6 +116,45 @@ class BL {
         $stmt->execute(['id' => $id]);
      //   $row = $stmt->fetch();
         return 0;
+    }
+
+
+//    public static function getCount($table, $id){
+//
+//        $connection = DAL::getInstance();
+//        $db = $connection->getDB();
+//
+//        $stmt = $db->prepare('SELECT COUNT * FROM ' .  $table . ' WHERE id = :id');
+//        $stmt->execute(['id' => $id]);
+//        $row = $stmt->fetch();
+//        return $row;
+//
+//    }
+
+    public static function getCount($table){
+
+        $connection = DAL::getInstance();
+        $db = $connection->getDB();
+
+        $stmt = $db->prepare('SELECT COUNT(id) FROM ' .  $table);
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
+
+    }
+
+    public static function setRoles(){
+
+        $connection = DAL::getInstance();
+        $db = $connection->getDB();
+
+        $stmt = $db->prepare('SELECT * FROM role');
+        $stmt->execute();
+        $_SESSION['roles'] = [];
+        while ($row = $stmt->fetch())
+        {
+            $_SESSION['roles'][$row['id']] = $row['name'];
+        }
     }
 
 }

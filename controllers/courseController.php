@@ -9,41 +9,79 @@ class CourseController extends Controller {
         // $this->db = new BL();
     }
 
-    function CreateCourse($params) {
-        $d = new CourseModel($params);
-        return BL::CreateEntity(courseModel::tableName, $d->jsonSerialize());
-        //$this->db->CreateEntity($c);
+    function uploadFile($files){
+        $image = $files['image'];
+        //    $uploaddir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/'; NOT FOR XAMPP
+        $uploaddir = dirname(__FILE__) . '/../uploads/';
+        $fileName = basename($image['name']);
+        $uploadfile = $uploaddir . $fileName;
 
+        if (move_uploaded_file($image['tmp_name'], $uploadfile)) {
+            $_SESSION['success'][] = 'File loaded successfully';
+            return $fileName;
+        //    $params['image'] = $fileName;
+        } else {
+            $_SESSION['error'][] = 'Error file loading';
+            return '';
+        }
     }
+    function CreateCourse($params) {
+        if(!empty($params['files'])){
+            $params['image'] = $this->uploadFile($params['files']);
+        }
+
+        $c = new CourseModel($params);
+        $result = BL::CreateEntity(CourseModel::tableName, $c->jsonSerialize());
+        if(isset($params['ajax']) && $params['ajax'] == 'false'){
+            header("Location: " .SITE_ROOT. "/index.php#school");
+            exit();
+        }
+        return $result;
+    }
+
+    function UpdateCourse($params) {
+        if(!empty($params['files'])){
+            $params['image'] = $this->uploadFile($params['files']);
+        }
+        $c = new CourseModel($params);
+        $result = BL::updateItemById(CourseModel::tableName, $params["id"], $c->jsonSerialize());
+        if(isset($params['ajax']) && $params['ajax'] == 'false'){
+
+            header("Location: " .SITE_ROOT. "/index.php#course:" . $params["id"]);
+            exit();
+        }
+        return $result;
+    }
+
+
 
     function getAllCourses() {
         return json_encode(BL::getAll(CourseModel::tableName));
     }
 
-    function getCourseById($params) {
-        // CONNECT BL
-//        $array = [
-//            "id" => $id,
-//            "name" => MD5($id)
-//        ];
-//
-//        $d = new CourseModel($array);
-//        return $d->jsonSerialize();
+    function getCoursesCount() {
+        return json_encode(BL::getCount(CourseModel::tableName));
+    }
 
-//        $d = new CourseModel($params);
-        return BL::getOneById(CourseModel::tableName, $params);
+    function getCourseById($id) {
+        $data =  BL::getOneById(CourseModel::tableName, $id);
+        $students = BL::getStudentsByCourse($id);
+        $data['students'] = $students;
+        return $data;
 
     }
 
 
     function DeleteCourse($request_vars) {
-      //  $d = new CourseModel($request_vars["id"]);
-        return BL::deleteItem(CourseModel::tableName, $request_vars["id"]);
+      //  $c = new CourseModel($request_vars["id"]);
+        BL::deleteItem(CourseModel::tableName, $request_vars["id"]);
+        if(isset($request_vars['ajax']) && $request_vars['ajax'] == 'false'){
+            header("Location: " .SITE_ROOT. "/index.php#school");
+            exit();
+        }
+        return 0;
     }
 
-    function UpdateCourse($request_vars) {
-        $d = new CourseModel($request_vars);
-        return BL::updateItemById(CourseModel::tableName, $request_vars["id"], $d->jsonSerialize());
-    }
+
 }
 ?>

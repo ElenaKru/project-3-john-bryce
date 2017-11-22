@@ -1,48 +1,29 @@
-var coursesModule = function() {
-    var currentID;
-    var currentItem;
-    courseApiMethod =  'course';
+var usersModule = function() {
+    userApiMethod =  'user';
     return {
-        createCourse: function() {
+        createUser: function() {
 
             var data = {
-                name: $('#courseName').val(),
-                ctrl: courseApiMethod
+                name: $('#userName').val(),
+                ctrl: userApiMethod
             }
             jQuery.ajax({
                 url: '../api/api.php' ,
                 data: data,
                 type: 'POST',
                 success: function(result) {
-                    alert('Course was added successfully!');
+                    alert('User was added successfully!');
                     //   callback(result);
                 }
 
-            // jQuery.post(courseApiUrl).always(function(data) {
+            // jQuery.post(userApiUrl).always(function(data) {
             //     console.log(data);
             });
         },
-        getCourses: function(callback) {
-            var data = {
-                ctrl: courseApiMethod
-            };
-            // if (id)
-            //     data.id = id;
 
-            jQuery.ajax({
-                url: '../api/api.php' ,
-                data: data,
-                type: 'GET',
-                success: function(result) {
-
-                    callback(result);
-                }
-            });
-        },
-        getCourse: function(courseId, callback) {
+        getUsers: function(callback) {
             var data = {
-                ctrl: courseApiMethod,
-                id: courseId
+                ctrl: userApiMethod
             };
             // if (id)
             //     data.id = id;
@@ -58,9 +39,28 @@ var coursesModule = function() {
             });
         },
 
-        getCoursesCount: function(callback) {
+        getUser: function(adminId, callback) {
             var data = {
-                ctrl: courseApiMethod,
+                ctrl: userApiMethod,
+                id: adminId
+            };
+            // if (id)
+            //     data.id = id;
+
+            jQuery.ajax({
+                url: '../api/api.php' ,
+                data: data,
+                type: 'GET',
+                success: function(result) {
+
+                    callback(result);
+                }
+            });
+        },
+
+        getUsersCount: function(callback) {
+            var data = {
+                ctrl: userApiMethod,
                 search: 'count'
             };
 
@@ -75,11 +75,11 @@ var coursesModule = function() {
             });
         },
 
-        deleteCourse: function() {
+        deleteUser: function() {
 
         var data = {
-            id: $('#courseID').val(),
-            ctrl: courseApiMethod
+            id: $('#userID').val(),
+            ctrl: userApiMethod
         };
             // data.id = id;
             jQuery.ajax({
@@ -87,16 +87,16 @@ var coursesModule = function() {
                 data: data,
                 type: 'DELETE',
                 success: function(result) {
-                    alert('Course was deleted successfully!');
+                    alert('User was deleted successfully!');
                 }
             });
         },
-        updateCourse: function (){
+        updateUser: function (){
 
         var data = {
-            id: $( "#courseID" ).val(),
-            name : $('#courseName').val(),
-            ctrl: courseApiMethod
+            id: $( "#userID" ).val(),
+            name : $('#userName').val(),
+            ctrl: userApiMethod
         };
         $.ajax(
             {
@@ -106,7 +106,7 @@ var coursesModule = function() {
                 // dataType: "json",
                 success: function(result) {
                     // if(result.status == 0){
-                        alert ('Course was updated successfully');
+                        alert ('User was updated successfully!');
                     // } else {
                     //     alert('ERROR');
                     // }
@@ -114,11 +114,11 @@ var coursesModule = function() {
             });
         },
 
-    getCoursesIds: function(callback) {
+    getUsersIds: function(callback) {
             jQuery.ajax({
                 url: '../api/api.php' ,
                 data: {
-                    ctrl: courseApiMethod
+                    ctrl: userApiMethod
                 },
                 type: 'GET',
                 success: function(result) {
@@ -128,5 +128,25 @@ var coursesModule = function() {
             });
 
         }
+
+        // getUsers: function(id, callback) {
+        //     var data = {
+        //         ctrl: userApiMethod
+        //     };
+        //     // if (id)
+        //     //     data.id = id;
+        //
+        //     jQuery.ajax({
+        //         url: '../api/api.php' ,
+        //         data: data,
+        //         type: 'GET',
+        //         success: function(result) {
+        //
+        //             callback(result);
+        //         }
+        //     });
+        // },
+
+
     }
 }

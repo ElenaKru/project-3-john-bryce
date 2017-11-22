@@ -5,30 +5,35 @@ require_once '../controllers/courseController.php';
 class CourseApi extends Api{
 
     function Create($params) {
-        $d = new CourseController;
-        return $d->CreateCourse($params);
+        $c = new CourseController;
+        return $c->CreateCourse($params);
     }
 
     function Read($params) {
-        $d = new CourseController;
+        $c = new CourseController;
 
         if (array_key_exists("id", $params)) {
-            $course = $d->getCourseById($params["id"]);
+            $course = $c->getCourseById($params["id"]);
             return json_encode($course, JSON_PRETTY_PRINT);
+        } elseif(array_key_exists("search", $params)){
+            switch ($params["search"]){
+                case 'count':
+                    return $c->getCoursesCount();
+                    break;
+            }
         }
         else {
-            return $d->getAllCourses($params);
+            return $c->getAllCourses();
         }
     }
     function Update($params) {
-
-        $d = new CourseController;
-        return $d->UpdateCourse($params);
+        $c = new CourseController;
+        return $c->UpdateCourse($params);
     }
     function Delete($params) {
 
-        $d = new CourseController;
-        return $d->DeleteCourse($params);
+        $c = new CourseController;
+        return $c->DeleteCourse($params);
     }
 }
 ?>

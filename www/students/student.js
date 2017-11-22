@@ -1,48 +1,28 @@
-var coursesModule = function() {
-    var currentID;
-    var currentItem;
-    courseApiMethod =  'course';
+var studentsModule = function() {
+    studentApiMethod =  'student';
     return {
-        createCourse: function() {
+        createStudent: function() {
 
             var data = {
-                name: $('#courseName').val(),
-                ctrl: courseApiMethod
+                name: $('#studentName').val(),
+                ctrl: studentApiMethod
             }
             jQuery.ajax({
                 url: '../api/api.php' ,
                 data: data,
                 type: 'POST',
                 success: function(result) {
-                    alert('Course was added successfully!');
+                    alert('Student was added successfully!');
                     //   callback(result);
                 }
 
-            // jQuery.post(courseApiUrl).always(function(data) {
+            // jQuery.post(studentApiUrl).always(function(data) {
             //     console.log(data);
             });
         },
-        getCourses: function(callback) {
+        getStudents: function(callback) {
             var data = {
-                ctrl: courseApiMethod
-            };
-            // if (id)
-            //     data.id = id;
-
-            jQuery.ajax({
-                url: '../api/api.php' ,
-                data: data,
-                type: 'GET',
-                success: function(result) {
-
-                    callback(result);
-                }
-            });
-        },
-        getCourse: function(courseId, callback) {
-            var data = {
-                ctrl: courseApiMethod,
-                id: courseId
+                ctrl: studentApiMethod
             };
             // if (id)
             //     data.id = id;
@@ -58,11 +38,13 @@ var coursesModule = function() {
             });
         },
 
-        getCoursesCount: function(callback) {
+        getStudent: function(studentId, callback) {
             var data = {
-                ctrl: courseApiMethod,
-                search: 'count'
+                ctrl: studentApiMethod,
+                id: studentId
             };
+            // if (id)
+            //     data.id = id;
 
             jQuery.ajax({
                 url: '../api/api.php' ,
@@ -75,11 +57,11 @@ var coursesModule = function() {
             });
         },
 
-        deleteCourse: function() {
+        deleteStudent: function() {
 
         var data = {
-            id: $('#courseID').val(),
-            ctrl: courseApiMethod
+            id: $('#studentID').val(),
+            ctrl: studentApiMethod
         };
             // data.id = id;
             jQuery.ajax({
@@ -87,16 +69,16 @@ var coursesModule = function() {
                 data: data,
                 type: 'DELETE',
                 success: function(result) {
-                    alert('Course was deleted successfully!');
+                    alert('Student was deleted successfully!');
                 }
             });
         },
-        updateCourse: function (){
+        updateStudent: function (){
 
         var data = {
-            id: $( "#courseID" ).val(),
-            name : $('#courseName').val(),
-            ctrl: courseApiMethod
+            id: $( "#studentID" ).val(),
+            name : $('#studentName').val(),
+            ctrl: studentApiMethod
         };
         $.ajax(
             {
@@ -106,7 +88,7 @@ var coursesModule = function() {
                 // dataType: "json",
                 success: function(result) {
                     // if(result.status == 0){
-                        alert ('Course was updated successfully');
+                        alert ('Student was updated successfully');
                     // } else {
                     //     alert('ERROR');
                     // }
@@ -114,11 +96,11 @@ var coursesModule = function() {
             });
         },
 
-    getCoursesIds: function(callback) {
+        getStudentsIds: function(callback) {
             jQuery.ajax({
                 url: '../api/api.php' ,
                 data: {
-                    ctrl: courseApiMethod
+                    ctrl: studentApiMethod
                 },
                 type: 'GET',
                 success: function(result) {
@@ -127,6 +109,25 @@ var coursesModule = function() {
                 }
             });
 
+        },
+
+        getStudentsCount: function(callback) {
+            var data = {
+                ctrl: studentApiMethod,
+                search: 'count'
+            };
+            // if (id)
+            //     data.id = id;
+
+            jQuery.ajax({
+                url: '../api/api.php' ,
+                data: data,
+                type: 'GET',
+                success: function(result) {
+
+                    callback(result);
+                }
+            });
         }
     }
 }

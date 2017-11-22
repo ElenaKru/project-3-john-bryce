@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h2> Create Director </h2>
+
+    <div class="form-group">
+        <label class="input-description">NAME:</label>
+        <input type="text" class="form-control" name="directorName" id="directorName" placeholder="New Director name">
+    </div>
+    <div class="form-group">
+        <br><br>
+        <button id="create" class="btnAdd btn btn-primary" name="action">Create Director</button>
+    </div>
+    <div id="result"></div>
+
+    <script src="director.js"></script>
+    <script>
+//        var m = moviesModule();
+        var d = directorsModule();
+
+
+            $('#create').click(function(){
+                d.createDirector();
+            });
+
+    </script>
+</body>
+</html>

@@ -7,31 +7,35 @@
 </head>
 <body>
 
-    <h2> Select Movie </h2>
+    <h2> Select Director </h2>
 
-    <label class="input-description">MOVIE:</label>
-    <input type="text" class="form-control" name="movieID" placeholder="Movie ID">
-    <button class="btnUpdate btn btn-primary" name="action" value="GetMovie">Get movie</button>
+    <label class="input-description">DIRECTOR:</label>
+    <input type="text" class="form-control" name="directorID" placeholder="Director ID">
+
+    <button class="btnUpdate btn btn-primary" name="action" value="GetDirector">Get director</button>
     <div id="result">
     </div>
 
-    <script src="movie.js"></script>
+    <script src="director.js"></script>
     <script>
+
         document.getElementsByTagName('button')[0].addEventListener('click', function() {
-            var res = m.getMovie(document.getElementsByTagName('input')[0].value, function (res) {
+            var res = d.getDirector(document.getElementsByTagName('input')[0].value, function(res) {
                 res = JSON.parse(res);
                 console.log(res);
+
                 if (res.id) {
                     document.getElementsByTagName('div')[0].innerHTML =
-                        "<span>" + "ID: " + res.id + "</span><br><span>" + "NAME: " + res.name + "</span><br><span>" + "DIRECTOR: " + res.d_id + "</span>";
+                        "<span>" + "ID: " + res.id + "</span><br><span>" + "NAME: " + res.name + "</span>";
                 } else {
                     $.each(res, function () {
-                        $('#result').append('ID: ' + this.id + ' NAME: ' + this.name + ' DIRECTOR: ' + this.d_id + '<br/>');
+                        $('#result').append('ID: ' + this.id + ' NAME: ' + this.name + '<br/>');
                     });
                 }
             });
         });
-        var m = moviesModule();
+
+        var d = directorsModule();
 
     </script>
 </body>

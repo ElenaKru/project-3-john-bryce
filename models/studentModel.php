@@ -1,19 +1,26 @@
 <?php
 require_once 'model.php';
 
-class CourseModel extends Model implements JsonSerializable {
+class StudentModel extends Model implements JsonSerializable {
     private $id;
     private $name;
-    private $description;
+    private $phone;
+    private $email;
     private $image;
-    const tableName = 'course';
+    const tableName = 'student';
+    const requiredFields = [
+        'name',
+        'phone',
+        'email'
+    ];
     function __construct($params) {
         // parent::__construct('Customer');
 
     //    $this->tableName = 'Customer';
         // $this->id = $params["id"];
         $this->name = $params["name"];
-        $this->description = $params["description"];
+        $this->phone = $params["phone"];
+        $this->email = $params["email"];
         $this->image = $params["image"];
     }
 
@@ -21,7 +28,8 @@ class CourseModel extends Model implements JsonSerializable {
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "description" => $this->description,
+            "phone" => $this->phone,
+            "email" => $this->email,
             "image" => $this->image
         ];
     }

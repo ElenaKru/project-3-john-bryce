@@ -6,11 +6,6 @@
         header("Location: login.php"); exit();
     }
     $user = new UserModel($_SESSION['user']);
-    $error = '';
-    if(!empty($_SESSION['error'])){
-        $error = implode(', ',$_SESSION['error']);
-        unset($_SESSION['error']);
-    }
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +22,7 @@
     <body>
         <!-- navigation -->
         <nav class="navbar navbar-default navbar-fixed-top"></nav>
-        <div style="top: 170px;  position: absolute;  background-color: red;  width: 100%;"><?php echo $error; ?></div>
+
         <div id="mainPanel">
             <div id="resultAdministration">
             </div>
@@ -49,7 +44,7 @@
                 if (match) {
                     hash = match[1];
                     var param = match[3];
-                    c.currentID = param;
+
                     s.currentID = param;
                     u.currentID = param;
                     console.log(param);
@@ -58,7 +53,7 @@
                             $("#school-link").click();
                             break;
                         case 'course':
-                            
+                            c.currentID = param;
                             $("#school-link").click();
                             break;
 //                        case 'admin':
@@ -93,37 +88,49 @@
             });
             $('.navbar-default').on('click', '#school-link', function(){
                 $("#mainPanel").html('');
-                $("#container").html('');
                 $("#templates").load("tpl/schoolContent.html", function(){
-
-
                     c.getCourses(function (res) {
-
                         res = JSON.parse(res);
+                     //   console.log(res);
+                        if (res.id) {
+                            document.getElementsByTagName('div')[0].innerHTML =
+                                "<span>" + "ID: " + res.id + "</span><br><span>" + "NAME: " + res.name + "</span>";
+                        } else {
                             var view = {
                                 courses : res
                             };
-                                var template = $('#resultCourse-tpl').html();
+                            $("#templates").load("tpl/schoolContent.html #resultCourse-tpl",function(){
+                                var template = document.getElementById('resultCourse-tpl').innerHTML;
                                 var output = Mustache.render(template, view);
                                 $("#mainPanel").append(output);
-
+                            });
+                            console.log('currentId',c.currentID );
                             if(c.currentID != undefined){
                                 $("#courseItem-" + c.currentID).click();
                             }
+                        }
                     });
 
                     s.getStudents(function (res) {
-
                         res = JSON.parse(res);
+                     //   console.log(res);
+                        if (res.id) {
+                            document.getElementsByTagName('div')[1].innerHTML =
+                                "<span>" + "ID: " + res.id + "</span><br><span>" + "NAME: " + res.name + "</span>";
+                        } else {
+
                             var view = {
                                 students : res
                             };
-                                var template = $('#resultStudent-tpl').html();
+                            $("#templates").load("tpl/schoolContent.html #resultStudent-tpl",function(){
+                                var template = document.getElementById('resultStudent-tpl').innerHTML;
                                 var output = Mustache.render(template, view);
                                 $("#mainPanel").append(output);
+                            });
                             if(s.currentID != undefined){
                                 $("#studentItem-" + s.currentID).click();
                             }
+                        }
                     });
 
                     c.getCoursesCount(function (res) {
@@ -132,11 +139,11 @@
                         var view = {
                             coursesCount : res
                         };
-                    //    $("#templates").load("tpl/schoolContent.html #mainPanelCourseResume-tpl",function(){
+                        $("#templates").load("tpl/schoolContent.html #mainPanelCourseResume-tpl",function(){
                             var template = document.getElementById('mainPanelCourseResume-tpl').innerHTML;
                             var output = Mustache.render(template, view);
                             $("#container").append(output);
-                     //   });
+                        });
 
                     });
 
@@ -146,11 +153,11 @@
                         var view = {
                             studentsCount : res
                         };
-                     //   $("#templates").load("tpl/schoolContent.html #mainPanelStudentResume-tpl",function(){
+                        $("#templates").load("tpl/schoolContent.html #mainPanelStudentResume-tpl",function(){
                         var template = document.getElementById('mainPanelStudentResume-tpl').innerHTML;
                         var output = Mustache.render(template, view);
                         $("#container").append(output);
-                    //    });
+                        });
 
                     });
 
