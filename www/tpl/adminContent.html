@@ -4,7 +4,7 @@
         {{#admins}}
         <span class="adminItem" data-admin-id="{{id}}" id="adminItem-{{id}}">
             {{#image}}
-            <img src="../uploads/{{image}}" height="15">
+            <img src="images/{{role}}.jpg" height="15">
             {{/image}}
             {{^image}}
             <img src="../uploads/no-image.png" height="15">
@@ -23,15 +23,17 @@
 
 
 <div id="mainPanelAdminContent-tpl">
-    <button id="editAdmin" data-admin-id="{{id}}">Edit</button><br><br>
-    Administrator Content: <br>
+    <div class="form-group">
+        <button id="editAdmin" data-admin-id="{{id}}" class="btnAdd btn btn-primary">Edit</button><br><br>
+    </div>
+    <h4>Administrator Content:</h4> <br>
     {{#admin.image}}
-    <img src="../uploads/{{course.image}}" height="45">
+    <img src="../uploads/{{admin.image}}" height="45">
     {{/admin.image}}
     {{^admin.image}}
     <img src="../uploads/no-image.png" height="45">
     {{/admin.image}}
-    NAME: {{admin.name}} ROLE: {{admin.roleName}} PHONE: {{admin.phone}} EMAIL: {{admin.email}}<br/>
+    NAME: {{admin.name}} ROLE: {{admin.role}} PHONE: {{admin.phone}} EMAIL: {{admin.email}}<br/>
 
 </div>
 
@@ -58,7 +60,7 @@
 
         <div class="form-group">
             <label for="adminRole">Role:</label>
-            <input id="adminRole" type="text" class="form-control" name="role" required value="{{admin.roleName}}">
+            <input id="adminRole" type="text" class="form-control" name="role" required value="{{admin.role}}">
         </div>
 
         <div class="form-group">
@@ -70,7 +72,8 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" value="add" id="create" class="btnAdd btn btn-primary" name="action">Save</button>
+            <button type="submit" value="add" id="createAdmin" class="btnAdd btn btn-primary" name="action">Save</button>
+            <button type="submit" value="delete" id="deleteAdmin" class="btnAdd btn btn-primary" name="action">Delete</button>
         </div>
     </form>
 </div>

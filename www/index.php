@@ -19,7 +19,7 @@
         <meta charset="UTF-8">
         <title>theschool</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="styles/st.css" />
+        <link rel="stylesheet" type="text/css" href="styles/style.css" />
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="js/mustache.min.js"></script>
 
@@ -61,12 +61,7 @@
                             
                             $("#school-link").click();
                             break;
-//                        case 'admin':
-//                            $("#administration-link").click();
-//                            break;
                     }
-
-                    // console.log(hash, param);
                 }
             }
 
@@ -76,8 +71,6 @@
             var u = usersModule();
 
 
-//            document.getElementsByTagName('a')[0].addEventListener('click', function() {
-//                var res = d.getCourse(document.getElementsByTagName('a')[0].value, function(res) {
             $(document).ready(function(){
                     var view = {
                     name : "<?php echo $user->getName();?>",
@@ -128,7 +121,7 @@
 
                     c.getCoursesCount(function (res) {
                         res = JSON.parse(res);
-                      //  console.log(res);
+                      
                         var view = {
                             coursesCount : res
                         };
@@ -142,7 +135,7 @@
 
                     s.getStudentsCount(function (res) {
                         res = JSON.parse(res);
-                       // console.log(res);
+                       
                         var view = {
                             studentsCount : res
                         };
@@ -161,10 +154,11 @@
 
             $('.navbar-default').on('click', '#administration-link', function(){
                 $("#mainPanel").html('');
+                $("#container").html('');
                 $("#templates").load("tpl/adminContent.html", function(){
                     u.getUsers(function (res) {
                         res = JSON.parse(res);
-                     //   console.log(res);
+                     
                         if (res.id) {
                             document.getElementsByTagName('div')[0].innerHTML =
                                 "<span>" + "ID: " + res.id + "</span><br><span>" + "NAME: " + res.name + "</span>";
@@ -183,7 +177,7 @@
 
                     u.getUsersCount(function (res) {
                         res = JSON.parse(res);
-                      //  console.log(res);
+                      
                         var view = {
                             adminsCount : res
                         };
@@ -233,7 +227,7 @@
             });
 
             $('#container').on('click', '#editCourse', function(){
-            //    console.log(c.currentItem);
+            
                 var view = {
                     course : c.currentItem,
                     method: 'POST'
@@ -248,7 +242,7 @@
 
 
             $('#container').on('click', '#editStudent', function(){
-              //  console.log(s.currentItem);
+              
                 var view = {
                     student : s.currentItem,
                     method: 'POST'
@@ -262,7 +256,7 @@
 
 
             $('#container').on('click', '#editAdmin', function(){
-             //   console.log(u.currentItem);
+             
                 var view = {
                     admin : u.currentItem,
                     method: 'POST'
@@ -334,170 +328,6 @@
                 });
             });
 
-
-
-
-
-
-
-//            $('#school-link').click(function () {
-//                var res = c.getCourses(function (res) {
-//                    res = JSON.parse(res);
-//                    console.log(res);
-//                    if (res.id) {
-//                        document.getElementsByTagName('div')[0].innerHTML =
-//                            "<span>" + "ID: " + res.id + "</span><br><span>" + "NAME: " + res.name + "</span>";
-//                    } else {
-//                        $('#resultCourse').append('<b><u>Courses</u></b> <button id="addCourse">+</button><br><br>');
-//                        $.each(res, function () {
-//                            $('#resultCourse').append(' NAME: ' + this.name + '<br>');
-//                        });
-//                    }
-//                });
-//            });
-
-
-
-         /*   $('#school-link').click(function () {
-
-            });*/
-
-
-
-/*            $('#school-link').click(function () {
-                var res = s.getStudentsCount(function (res) {
-                    res = JSON.parse(res);
-                    console.log(res);
-                    if (res.id) {
-                        document.getElementsByTagName('div')[1].innerHTML =
-                            "<span>" + "ID: " + res.id + "</span><br><span>" + "NAME: " + res.name + "</span>";
-                    } else {
-                        $('#container').append('<b><u>Students</u></b> res<br><br>');
-//                        $.each(res, function () {
-//                            $('#container').append(' NAME: ' + this.name + ' PHONE: ' + this.phone + '<br>');
-//                        });
-                    }
-                });
-            });*/
-
-
-
-
-
-           /* $( document ).ready(function() {
-                var res = u.getUsers('#user', function (res) {
-                    res = JSON.parse(res);
-                    console.log(res);
-                    if (res.id) {
-                        document.getElementsByTagName('span')[0].innerHTML =
-                            "<span>" + "ID: " + res.id + "</span><br><span>" + "NAME: " + res.name + "</span>";
-                    } else {
-                        $.each(res, function () {
-                            $('#user').append(' NAME: ' + this.name + ' ROLE: ' + this.role + '<br>');
-                        });
-                    }
-                });
-            });*/
-
-
-
-
-
-            // new Vue({
-            //     el: '#app',
-            //     data: {
-            //         message: 'Hello Vue.js!'
-            //     }
-            // });
-            // Vue.component('greeter', {
-
-            //     template: require('./greeter.html'),
-
-            //     props: ['name'],
-            // });
-
-//            var  data = {
-//                "header": "Colors",
-//                "items": [
-//                    {"name": "red", "first": true, "url": "#Red"},
-//                    {"name": "green", "link": true, "url": "#Green"},
-//                    {"name": "blue", "link": true, "url": "#Blue"}
-//                ],
-//                "empty": false
-//            };
-//
-//            var template = '<h1>{{header}}</h1>{{#bug}}{{/bug}}{{#items}}{{#first}}<li><strong>{{name}}</strong></li>{{/first}}{{#link}}<li><a href="{{url}}">{{name}}</a></li>{{/link}}{{/items}}{{#empty}}<p>The list is empty.</p>{{/empty}}';
-//
-//
-//            document.getElementById("output").value = Mustache.to_html(template, data);
-
-
-
-//            $(document).ready(function(){
-//                var view = {
-//                    name : "Joe",
-//                    occupation : "Web Developer"
-//                };
-//                $("#templates").load("template.html #template1",function(){
-//                    var template = document.getElementById('template1').innerHTML;
-//                    var output = Mustache.render(template, view);
-//                    $("#person").html(output);
-//                });
-//            });
-//
-//
-//
-       //     Mustache.to_html(template, data);
-
-
-         /*   var data = [
-                {
-                    "id":"3",
-                    "id_cat":"10",
-                    "text":"Книга Секреты JavaScript ниндзя",
-                    "url_link":"http://xxxLorem/id/22421421",
-                    "url_img":"//xxxLorem.ru/1007123068.jpg"
-                },
-                {
-                    "id":"4",
-                    "id_cat":"10",
-                    "text":"Книга JavaScript. Шаблоны",
-                    "url_link":"http://xxxLorem/id/6287517",
-                    "url_img":"//xxxLorem.ru/1002535209.jpg"
-                },
-                {
-                    "id":"5",
-                    "id_cat":"2",
-                    "text":"Книга Отзывчивый веб-дизайн",
-                    "url_link":"http://xxxLorem/id/8747299",
-                    "url_img":"//xxxLorem.ru/1007055061.jpg"
-                },
-                {
-                    "id":"6",
-                    "id_cat":"4",
-                    "text":"Книга Yii. Сборник рецептов",
-                    "url_link":"http://xxxLorem/id/19756871/",
-                    "url_img":"//xxxLorem.ru/1005845104.jpg"
-                }
-            ]*/
-           /* function showStudent(data) {  // знак решетки({{#products}}) говорит, что надо пройтись по элементам массива
-                $('#container').append(Mustache.to_html("{{#students}} \
-                    <section> \
-                        <div> \
-                            <div class='clearfix' > \
-                                <a href='{{url_link}}' title=''> \
-                                    <img class='img'  src='{{url_img}}'> \
-                                </a> \
-                            </div> \
-                            <div class='txt'> \
-                                <div> \
-                                    <a href='{{url_link}}'>{{text}}</a> \
-                                </div> \
-                            </div> \
-                        </div> \
-                    </section> \
-                {{/students}}", { students: data }));
-            }*/
        </script>
 
         <p id="person"></p>

@@ -91,6 +91,19 @@ class BL {
         return $stmt->fetchAll();
     }
 
+    public static function getCoursesByStudent($id){
+
+        $connection = DAL::getInstance();
+        $db = $connection->getDB();
+
+        $stmt = $db->prepare('SELECT course.*
+                                FROM course
+                                INNER JOIN courses_students ON course.id = courses_students.course
+                                WHERE courses_students.student = :student');
+        $stmt->execute(['student' => $id]);
+        return $stmt->fetchAll();
+    }
+
     public static function getAllIds($table){
 
         $connection = DAL::getInstance();

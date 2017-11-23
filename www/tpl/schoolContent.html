@@ -48,8 +48,10 @@
 
 
 <div id="mainPanelCourseContent-tpl">
-    <button id="editCourse" data-course-id="{{id}}">Edit</button><br><br>
-    Course Content: <br>
+    <div class="form-group">
+        <button id="editCourse" data-course-id="{{id}}" class="btnAdd btn btn-primary">Edit</button><br><br>
+    </div>
+    <h4>Course Content:</h4> <br>
     {{#course.image}}
     <img src="../uploads/{{course.image}}" height="45">
     {{/course.image}}
@@ -57,7 +59,8 @@
     <img src="../uploads/no-image.png" height="45">
     {{/course.image}}
     NAME: {{course.name}} DESCRIPTION: {{course.description}}<br/>
-    <h3>Students:</h3>
+
+    <h4>Students:</h4>
 <ul>
     {{#course.students}}
     <li>
@@ -75,8 +78,10 @@
 
 
 <div id="mainPanelStudentContent-tpl">
-    <button id="editStudent" data-student-id="{{id}}">Edit</button><br><br>
-    Student Content: <br>
+    <div class="form-group">
+        <button id="editStudent" data-student-id="{{id}}" class="btnAdd btn btn-primary">Edit</button><br><br>
+    </div>
+    <h4>Student Content:</h4> <br>
     {{#student.image}}
     <img src="../uploads/{{student.image}}" height="45">
     {{/student.image}}
@@ -85,6 +90,20 @@
     {{/student.image}}
     NAME: {{student.name}} PHONE: {{student.phone}} EMAIL: {{student.email}}<br/>
 
+    <h4>Courses:</h4>
+    <ul>
+        {{#student.courses}}
+        <li>
+            {{#image}}
+            <img src="../uploads/{{image}}" height="45">
+            {{/image}}
+            {{^image}}
+            <img src="../uploads/no-image.png" height="45">
+            {{/image}}
+            {{name}}
+        </li>
+        {{/student.courses}}
+    </ul>
 </div>
 
 
@@ -116,6 +135,7 @@
         </div>
 
     </form>
+
     <form name="deleteCourseForm" id="deleteCourseForm" action="../api/api.php" method="POST"> <!-- DELETE METHOD IS NOT SUPPORTED -->
         <input type="hidden" name="id" value="{{course.id}}">
         <input type="hidden" name="ctrl" value="course">

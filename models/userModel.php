@@ -39,10 +39,6 @@ class UserModel extends Model implements JsonSerializable {
         return $this->role;
     }
 
-//    public function getEmail() {
-//        return $this->email;
-//    }
-
     public function getRoleName() {
         return $_SESSION['roles'][$this->role];
     }

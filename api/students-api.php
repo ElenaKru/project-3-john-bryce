@@ -23,7 +23,7 @@ class StudentApi extends Api{
             }
         }
         else {
-            return $s->getAllStudents($params);
+            return $s->getAllStudents();
         }
     }
     function Update($params) {

@@ -1,44 +1,102 @@
-body {
+/* style for navbar */
+
+.menu
+{
+  background-color: #00547E;
+  border-bottom: 4px solid #04A3ED;
+  width:100%;
+  height: auto;
+  padding: 0 10px;
+  position: fixed;
+  margin: 0px;
+  z-index: 1;
+  /*opacity: 0.9;*/
+}
+
+.menu  .navbar-nav > .active > a
+{
+  background-color : #04A3ED;
+  color: white;
+  font-weight: bold;
+}
+
+.menu  .navbar-nav >  li >  a
+{
+  font-size: 13px;
+  color: white;
+  padding: 10px 35px;
+}
+.menu  .navbar-nav >  li >  a:hover
+{
+  background-color: #04A3ED;
+}
+
+.navbar-header > a
+{
+  font-family: 'Ubuntu Condensed', sans-serif;
+  padding: 0px;
+  margin: 0px;
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+  padding: 5px 30px;
+}
+.navbar-header > a:hover
+{
+  text-decoration: none;
+  color: #04A3ED;
+}
+
+
+/* style for login */
+
+body
+{
   padding-top: 120px;
   padding-bottom: 40px;
   background-color: #eee;
 }
-.btn {
-  outline: 0;
-  border: none;
-  border-top: none;
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
-  box-shadow: inset 2px -3px rgba(0, 0, 0, 0.15);
+.btn
+{
+  outline:0;
+  border:none;
+  border-top:none;
+  border-bottom:none;
+  border-left:none;
+  border-right:none;
+  box-shadow:inset 2px -3px rgba(0,0,0,0.15);
 }
-.btn:focus {
-  outline: 0;
-  -webkit-outline: 0;
-  -moz-outline: 0;
+.btn:focus
+{
+  outline:0;
+  -webkit-outline:0;
+  -moz-outline:0;
 }
-.fullscreen_bg {
+.fullscreen_bg
+{
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   background-size: cover;
-  background-position: 50% 50%;
-  background-image: url('http://i.imgur.com/h26izWg.jpg');
-  background-repeat: repeat;
+  /* background-position: 50% 50%; */
+  background-image: url("../images/background.jpg");
+  background-repeat:repeat;
 }
-.form-signin {
+.form-signin
+{
   max-width: 280px;
   padding: 15px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top:150px;
 }
-.form-signin .form-signin-heading,
-.form-signin {
+.form-signin .form-signin-heading, .form-signin
+{
   margin-bottom: 10px;
 }
-.form-signin .form-control {
+.form-signin .form-control
+{
   position: relative;
   font-size: 16px;
   height: auto;
@@ -47,10 +105,12 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.form-signin .form-control:focus {
+.form-signin .form-control:focus
+{
   z-index: 2;
 }
-.form-signin input[type="text"] {
+.form-signin input[type="text"]
+{
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -60,7 +120,8 @@ body {
   border-left-style: solid;
   border-color: #000;
 }
-.form-signin input[type="password"] {
+.form-signin input[type="password"]
+{
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -68,11 +129,64 @@ body {
   border-right-style: solid;
   border-bottom-style: solid;
   border-left-style: solid;
-  border-color: #000000;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-color: rgb(0,0,0);
+  border-top:1px solid rgba(0,0,0,0.08);
 }
-.form-signin-heading {
+.form-signin-heading
+{
   color: #fff;
   text-align: center;
-  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+}
+
+#resultCourse, #resultStudent, #resultAdministration, #container, #mainPanel, #resultAdmin
+{
+  margin-top: 40px;
+  margin-right: 20px;
+  display: inline-block;
+  border: solid 1px blue;
+}
+
+#resultCourse
+{
+  position: absolute;
+  left: 0;
+}
+
+#resultStudent
+{
+  position: absolute;
+  left: 200px;
+}
+#mainPanel
+{
+  float:left;
+  border: none;
+}
+#user
+{
+  color: beige;
+}
+#container
+{
+  width: 50%;
+  float: right;
+  min-height: 300px;
+  margin-top:80px;
+}
+
+#deleteCourse, #deleteStudent, #deleteAdmin
+{
+  float: right;
+  display: inline-block;
+}
+
+#deleteCourse
+{
+  margin-top: -48px;
+}
+
+#createCourse
+{
+  display: inline-block;
 }

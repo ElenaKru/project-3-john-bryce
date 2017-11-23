@@ -44,25 +44,28 @@ class StudentController extends Controller {
         return json_encode(BL::getAll(StudentModel::tableName));
     }
 
-    function getStudentById($params) {
+    function getStudentById($id) {
         // CONNECT BL
-//        $array = [
-//            "id" => $id,
-//            "name" => MD5($id)
-//        ];
-//
-//        $s = new StudentModel($array);
-//        return $s->jsonSerialize();
+        $data =  BL::getOneById(StudentModel::tableName, $id);
+        $courses = BL::getCoursesByStudent($id);
+        $data['courses'] = $courses;
+        return $data;
 
-//        $s = new StudentModel($params);
-        return BL::getOneById(StudentModel::tableName, $params);
+//        return BL::getOneById(StudentModel::tableName, $params);
 
     }
 
 
     function DeleteStudent($request_vars) {
       //  $s = new StudentModel($request_vars["id"]);
-        return BL::deleteItem(StudentModel::tableName, $request_vars["id"]);
+        BL::deleteItem(StudentModel::tableName, $request_vars["id"]);
+        if(isset($request_vars['ajax']) && $request_vars['ajax'] == 'false'){
+            header("Location: " .SITE_ROOT. "/index.php#school");
+            exit();
+        }
+        return 0;
+
+//        return BL::deleteItem(StudentModel::tableName, $request_vars["id"]);
     }
 
     function UpdateStudent($params) {
