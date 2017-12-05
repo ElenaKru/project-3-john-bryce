@@ -22,7 +22,6 @@ class UserController extends Controller {
         if(!isset($_SESSION['roles'])){
             BL::setRoles();
         }
-
     }
 
     function uploadFile($files){
@@ -67,33 +66,25 @@ class UserController extends Controller {
          return json_encode($result);
      }
 
-//    function getAllUsers() {
-//        return json_encode(BL::getAll(UserModel::tableName));
-//    }
-
     function getUsersCount() {
         return json_encode(BL::getCount(UserModel::tableName));
     }
 
      function getUserById($params) {
          // CONNECT BL
- //        $array = [
- //            "id" => $id,
- //            "name" => MD5($id)
- //        ];
- //
- //        $u = new UserModel($array);
- //        return $u->jsonSerialize();
-
- //        $u = new UserModel($params);
+ 
          return BL::getOneById(UserModel::tableName, $params);
 
      }
 
-
      function DeleteUser($request_vars) {
-         //  $u = new UserModel($request_vars["id"]);
-         return BL::deleteItem(UserModel::tableName, $request_vars["id"]);
+
+         BL::deleteItem(UserModel::tableName, $request_vars["id"]);
+         if(isset($request_vars['ajax']) && $request_vars['ajax'] == 'false'){
+             header("Location: " .SITE_ROOT. "/index.php#admin");
+             exit();
+         }
+         return 0;
      }
 
     function UpdateUser($params) {
@@ -101,7 +92,7 @@ class UserController extends Controller {
             $params['image'] = $this->uploadFile($params['files']);
         }
         $u = new UserModel($params);
-        $result = BL::updateItemById(UserModel::tableName, $params["id"], $u->jsonSerialize());
+        $result = BL::updateItemById(UserModel::tableName, $params["id"], $u->jsonSerializeForUpdate());
         if(isset($params['ajax']) && $params['ajax'] == 'false'){
 
             header("Location: " .SITE_ROOT. "/index.php#admin:" . $params["id"]);
@@ -110,9 +101,5 @@ class UserController extends Controller {
         return $result;
     }
 
-//     function UpdateUser($request_vars) {
-//         $u = new UserModel($request_vars);
-//         return BL::updateItemById(UserModel::tableName, $request_vars["id"], $u->jsonSerialize());
-//     }
 }
 ?>

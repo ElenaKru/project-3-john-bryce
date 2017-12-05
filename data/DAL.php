@@ -29,12 +29,10 @@ class DAL {
         return self::$instance;
     }
 
-
     private function __clone() { }
 
     public function getDB() {
         return $this->db;
     }
 }
-
 ?>

@@ -13,11 +13,7 @@ var usersModule = function() {
                 type: 'POST',
                 success: function(result) {
                     alert('User was added successfully!');
-                    //   callback(result);
                 }
-
-            // jQuery.post(userApiUrl).always(function(data) {
-            //     console.log(data);
             });
         },
 
@@ -25,8 +21,6 @@ var usersModule = function() {
             var data = {
                 ctrl: userApiMethod
             };
-            // if (id)
-            //     data.id = id;
 
             jQuery.ajax({
                 url: '../api/api.php' ,
@@ -44,9 +38,7 @@ var usersModule = function() {
                 ctrl: userApiMethod,
                 id: adminId
             };
-            // if (id)
-            //     data.id = id;
-
+            
             jQuery.ajax({
                 url: '../api/api.php' ,
                 data: data,
@@ -81,7 +73,7 @@ var usersModule = function() {
             id: $('#userID').val(),
             ctrl: userApiMethod
         };
-            // data.id = id;
+            
             jQuery.ajax({
                 url: '../api/api.php' ,
                 data: data,
@@ -103,7 +95,7 @@ var usersModule = function() {
                 url: '../api/api.php',
                 type: 'PUT',
                 data: data,
-                // dataType: "json",
+                
                 success: function(result) {
                     // if(result.status == 0){
                         alert ('User was updated successfully!');
@@ -128,25 +120,5 @@ var usersModule = function() {
             });
 
         }
-
-        // getUsers: function(id, callback) {
-        //     var data = {
-        //         ctrl: userApiMethod
-        //     };
-        //     // if (id)
-        //     //     data.id = id;
-        //
-        //     jQuery.ajax({
-        //         url: '../api/api.php' ,
-        //         data: data,
-        //         type: 'GET',
-        //         success: function(result) {
-        //
-        //             callback(result);
-        //         }
-        //     });
-        // },
-
-
     }
 }

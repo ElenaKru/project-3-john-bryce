@@ -25,6 +25,7 @@ class CourseController extends Controller {
             return '';
         }
     }
+
     function CreateCourse($params) {
         if(!empty($params['files'])){
             $params['image'] = $this->uploadFile($params['files']);
@@ -53,8 +54,6 @@ class CourseController extends Controller {
         return $result;
     }
 
-
-
     function getAllCourses() {
         return json_encode(BL::getAll(CourseModel::tableName));
     }
@@ -71,7 +70,6 @@ class CourseController extends Controller {
 
     }
 
-
     function DeleteCourse($request_vars) {
       //  $c = new CourseModel($request_vars["id"]);
         BL::deleteItem(CourseModel::tableName, $request_vars["id"]);
@@ -81,7 +79,5 @@ class CourseController extends Controller {
         }
         return 0;
     }
-
-
 }
 ?>

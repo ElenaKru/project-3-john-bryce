@@ -36,7 +36,6 @@
         <div id="container">
         </div>
 
-
         <script src="courses/course.js"></script>
         <script src="students/student.js"></script>
         <script src="users/user.js"></script>
@@ -49,27 +48,35 @@
                 if (match) {
                     hash = match[1];
                     var param = match[3];
-                    c.currentID = param;
-                    s.currentID = param;
-                    u.currentID = param;
-                    console.log(param);
+
+
+
+//                    console.log(param);
                     switch (hash) {
                         case 'school':
                             $("#school-link").click();
                             break;
                         case 'course':
-                            
+                            c.currentID = param;
                             $("#school-link").click();
                             break;
+                        case 'student':
+                            s.currentID = param;
+                            $("#school-link").click();
+                            break;
+                        case 'admin':
+                            u.currentID = param;
+                            $("#administration-link").click();
+                            break;
                     }
+                } else {
+                //    $("#school-link").click();
                 }
             }
-
 
             var c = coursesModule();
             var s = studentsModule();
             var u = usersModule();
-
 
             $(document).ready(function(){
                     var view = {
@@ -83,12 +90,12 @@
                     $(".navbar-default").html(output);
                     checkHash();
                 });
+                $('#container').css('border', '0');
             });
             $('.navbar-default').on('click', '#school-link', function(){
                 $("#mainPanel").html('');
-                $("#container").html('');
+                $("#container").html('').css('border', 'solid 1px blue');
                 $("#templates").load("tpl/schoolContent.html", function(){
-
 
                     c.getCourses(function (res) {
 
@@ -151,10 +158,9 @@
 
             });
 
-
             $('.navbar-default').on('click', '#administration-link', function(){
                 $("#mainPanel").html('');
-                $("#container").html('');
+                $("#container").html('').css('border', 'solid 1px blue');
                 $("#templates").load("tpl/adminContent.html", function(){
                     u.getUsers(function (res) {
                         res = JSON.parse(res);
@@ -205,13 +211,20 @@
             });
 
             $('#mainPanel').on('click', '#addStudent', function(){
-                var view = {
-                    method : 'POST'
-                };
+//                var view = {
+//                    method : 'POST'
+//                };
+                c.getCourses(function (res) {
+                    res = JSON.parse(res);
+                    var view = {
+                        method: 'POST',
+                        courses : res
+                    };
                 $("#templates").load("tpl/schoolContent.html #addStudentTpl",function(){
                 var template = document.getElementById('addStudentTpl').innerHTML;
                 var output = Mustache.render(template, view);
                 $("#container").html(output);
+                });
                 });
             });
 
@@ -239,8 +252,6 @@
                 });
             });
 
-
-
             $('#container').on('click', '#editStudent', function(){
               
                 var view = {
@@ -254,7 +265,6 @@
                 });
             });
 
-
             $('#container').on('click', '#editAdmin', function(){
              
                 var view = {
@@ -267,7 +277,6 @@
                     $("#container").html(output);
                 });
             });
-
 
             $('#mainPanel').on('click', '.courseItem', function(){
                 console.log('clicked', $(this).data('course-id'));
@@ -285,7 +294,6 @@
                         var output = Mustache.render(template, view);
                         $("#container").html(output);
                         });
-
                 });
             });
 
@@ -304,10 +312,8 @@
                     var output = Mustache.render(template, view);
                     $("#container").html(output);
                     });
-
                 });
             });
-
 
             $('#mainPanel').on('click', '.adminItem', function(){
                 var adminId = $(this).data('admin-id');
@@ -324,7 +330,6 @@
                     var output = Mustache.render(template, view);
                     $("#container").html(output);
                     });
-
                 });
             });
 

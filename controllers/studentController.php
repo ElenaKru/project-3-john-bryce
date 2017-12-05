@@ -25,19 +25,21 @@ class StudentController extends Controller {
             return '';
         }
     }
+
     function CreateStudent($params) {
         if(!empty($params['files'])){
             $params['image'] = $this->uploadFile($params['files']);
         }
 
         $s = new StudentModel($params);
-        $result = BL::CreateEntity(StudentModel::tableName, $s->jsonSerialize());
+        $id = BL::CreateEntity(StudentModel::tableName, $s->jsonSerialize());
+        BL::updateStudentCourses($id,$params['courses']);
         if(isset($params['ajax']) && $params['ajax'] == 'false'){
 
             header("Location: " .SITE_ROOT. "/index.php#school");
             exit();
         }
-        return $result;
+        return $id;
     }
 
     function getAllStudents() {
@@ -48,16 +50,26 @@ class StudentController extends Controller {
         // CONNECT BL
         $data =  BL::getOneById(StudentModel::tableName, $id);
         $courses = BL::getCoursesByStudent($id);
-        $data['courses'] = $courses;
-        return $data;
+        $coursesIds=[];
+        foreach($courses as $c){
+            $coursesIds[] = $c['id'];
+        }
 
-//        return BL::getOneById(StudentModel::tableName, $params);
+        $allCourses = BL::getAll(CourseModel::tableName);
+        foreach ($allCourses as $key => $curCourse){
+            if(in_array($curCourse['id'], $coursesIds)){
+                $allCourses[$key]['connected'] = true;
+            } else {
+                $allCourses[$key]['connected'] = false;
+            }
+        }
+        $data['courses'] = $allCourses;
+        return $data;
 
     }
 
-
     function DeleteStudent($request_vars) {
-      //  $s = new StudentModel($request_vars["id"]);
+      
         BL::deleteItem(StudentModel::tableName, $request_vars["id"]);
         if(isset($request_vars['ajax']) && $request_vars['ajax'] == 'false'){
             header("Location: " .SITE_ROOT. "/index.php#school");
@@ -65,7 +77,6 @@ class StudentController extends Controller {
         }
         return 0;
 
-//        return BL::deleteItem(StudentModel::tableName, $request_vars["id"]);
     }
 
     function UpdateStudent($params) {
@@ -80,6 +91,8 @@ class StudentController extends Controller {
         }
         $s = new StudentModel($params);
         $result = BL::updateItemById(StudentModel::tableName, $params["id"], $s->jsonSerialize());
+        BL::updateStudentCourses($params["id"],$params['courses']);
+
         if(isset($params['ajax']) && $params['ajax'] == 'false'){
 
             header("Location: " .SITE_ROOT. "/index.php#student:" . $params["id"]);
@@ -87,11 +100,6 @@ class StudentController extends Controller {
         }
         return $result;
     }
-
-//    function UpdateStudent($request_vars) {
-//        $s = new StudentModel($request_vars);
-//        return BL::updateItemById(StudentModel::tableName, $request_vars["id"], $s->jsonSerialize());
-//    }
 
     function checkParams($params){
         $required = 0;
@@ -109,7 +117,6 @@ class StudentController extends Controller {
                     break;
             }
         }
-
 
         if($required < count(StudentModel::requiredFields)){
             $error = 1;

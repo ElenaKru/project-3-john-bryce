@@ -1,10 +1,10 @@
-<div id="resultAdmin-tpl" >
+<script type="text/template" id="resultAdmin-tpl" >
     <div id="resultAdmin">
         <b><u>Administrators</u></b> <button id="addAdmin">+</button><br><br>
         {{#admins}}
-        <span class="adminItem" data-admin-id="{{id}}" id="adminItem-{{id}}">
+        <span class="adminItem list-group-item" data-admin-id="{{id}}" id="adminItem-{{id}}">
             {{#image}}
-            <img src="images/{{role}}.jpg" height="15">
+            <img src="images/{{roleName}}.jpg" height="15">
             {{/image}}
             {{^image}}
             <img src="../uploads/no-image.png" height="15">
@@ -14,7 +14,7 @@
 
         {{/admins}}
     </div>
-</div>
+</script>
 
 
 <div id="mainPanelAdminResume-tpl">
@@ -22,7 +22,7 @@
 </div>
 
 
-<div id="mainPanelAdminContent-tpl">
+<script type="text/template" id="mainPanelAdminContent-tpl">
     <div class="form-group">
         <button id="editAdmin" data-admin-id="{{id}}" class="btnAdd btn btn-primary">Edit</button><br><br>
     </div>
@@ -35,12 +35,12 @@
     {{/admin.image}}
     NAME: {{admin.name}} ROLE: {{admin.role}} PHONE: {{admin.phone}} EMAIL: {{admin.email}}<br/>
 
-</div>
+</script>
 
 
-<div id="addAdminTpl">
+<script type="text/template" id="addAdminTpl">
     <form name="addAdminForm" id="addAdminForm" action="../api/api.php" method="{{method}}" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="{{user.id}}">
+        <input type="hidden" name="id" value="{{admin.id}}">
         <input type="hidden" name="ctrl" value="user">
         <input type="hidden" name="ajax" value="false">
         <div class="form-group">
@@ -76,4 +76,4 @@
             <button type="submit" value="delete" id="deleteAdmin" class="btnAdd btn btn-primary" name="action">Delete</button>
         </div>
     </form>
-</div>
+</script>

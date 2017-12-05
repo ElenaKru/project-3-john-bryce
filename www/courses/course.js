@@ -15,20 +15,16 @@ var coursesModule = function() {
                 type: 'POST',
                 success: function(result) {
                     alert('Course was added successfully!');
-                    //   callback(result);
+                   
                 }
 
-            // jQuery.post(courseApiUrl).always(function(data) {
-            //     console.log(data);
             });
         },
         getCourses: function(callback) {
             var data = {
                 ctrl: courseApiMethod
             };
-            // if (id)
-            //     data.id = id;
-
+            
             jQuery.ajax({
                 url: '../api/api.php' ,
                 data: data,
@@ -44,8 +40,6 @@ var coursesModule = function() {
                 ctrl: courseApiMethod,
                 id: courseId
             };
-            // if (id)
-            //     data.id = id;
 
             jQuery.ajax({
                 url: '../api/api.php' ,
@@ -81,7 +75,7 @@ var coursesModule = function() {
             id: $('#courseID').val(),
             ctrl: courseApiMethod
         };
-            // data.id = id;
+            
             jQuery.ajax({
                 url: '../api/api.php' ,
                 data: data,
@@ -103,7 +97,7 @@ var coursesModule = function() {
                 url: '../api/api.php',
                 type: 'PUT',
                 data: data,
-                // dataType: "json",
+               
                 success: function(result) {
                     // if(result.status == 0){
                         alert ('Course was updated successfully');

@@ -26,5 +26,4 @@ class CourseModel extends Model implements JsonSerializable {
         ];
     }
 }
-
 ?>

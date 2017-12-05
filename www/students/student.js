@@ -13,19 +13,14 @@ var studentsModule = function() {
                 type: 'POST',
                 success: function(result) {
                     alert('Student was added successfully!');
-                    //   callback(result);
+                    
                 }
-
-            // jQuery.post(studentApiUrl).always(function(data) {
-            //     console.log(data);
             });
         },
         getStudents: function(callback) {
             var data = {
                 ctrl: studentApiMethod
             };
-            // if (id)
-            //     data.id = id;
 
             jQuery.ajax({
                 url: '../api/api.php' ,
@@ -43,8 +38,6 @@ var studentsModule = function() {
                 ctrl: studentApiMethod,
                 id: studentId
             };
-            // if (id)
-            //     data.id = id;
 
             jQuery.ajax({
                 url: '../api/api.php' ,
@@ -63,7 +56,7 @@ var studentsModule = function() {
             id: $('#studentID').val(),
             ctrl: studentApiMethod
         };
-            // data.id = id;
+            
             jQuery.ajax({
                 url: '../api/api.php' ,
                 data: data,
@@ -85,7 +78,6 @@ var studentsModule = function() {
                 url: '../api/api.php',
                 type: 'PUT',
                 data: data,
-                // dataType: "json",
                 success: function(result) {
                     // if(result.status == 0){
                         alert ('Student was updated successfully');
@@ -116,8 +108,6 @@ var studentsModule = function() {
                 ctrl: studentApiMethod,
                 search: 'count'
             };
-            // if (id)
-            //     data.id = id;
 
             jQuery.ajax({
                 url: '../api/api.php' ,

@@ -1,7 +1,6 @@
 <?php
 require_once 'DAL.php';
 
-
 class BL {
 
     public static function login($email, $password){
@@ -31,6 +30,8 @@ class BL {
         return false;
     }
 
+
+
     public static function updateItemById($table, $id, $data){
         $connection = DAL::getInstance();
         $db = $connection->getDB();
@@ -49,6 +50,32 @@ class BL {
 
         return 0;
     }
+
+    public static function updateStudentCourses($student, $courses){
+        $connection = DAL::getInstance();
+        $db = $connection->getDB();
+        $query = "DELETE FROM courses_students WHERE student = :student";
+        $stmt = $db->prepare($query);
+        $stmt->execute(['student' => $student]);
+        $strCourses ="";
+        $arrCourses = [];
+        $step = 0;
+
+        foreach ($courses as $course){
+            $strCourses .= "(:course" .$step. ", :student" .$step. "),";
+            $arrCourses['course' . $step] = $course;
+            $arrCourses['student' . $step] = $student;
+                $step++;
+        }
+        if(!empty($strCourses)){
+            $strCourses = substr($strCourses, 0,-1);
+            $query = "INSERT INTO courses_students (course,student) VALUES " . $strCourses ;
+            $stmt = $db->prepare($query);
+            $stmt->execute($arrCourses);
+        }
+
+    }
+
     public static function getAll($table){
 
         $connection = DAL::getInstance();
@@ -63,7 +90,6 @@ class BL {
         }
 
         return $result;
-
     }
 
     public static function getOneById($table, $id){
@@ -75,7 +101,6 @@ class BL {
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch();
         return $row;
-
     }
 
     public static function getStudentsByCourse($id){
@@ -96,7 +121,7 @@ class BL {
         $connection = DAL::getInstance();
         $db = $connection->getDB();
 
-        $stmt = $db->prepare('SELECT course.*
+        $stmt = $db->prepare('SELECT course.id
                                 FROM course
                                 INNER JOIN courses_students ON course.id = courses_students.course
                                 WHERE courses_students.student = :student');
@@ -118,7 +143,6 @@ class BL {
         }
 
         return $result;
-
     }
 
     public static function deleteItem($table, $id){
@@ -131,19 +155,6 @@ class BL {
         return 0;
     }
 
-
-//    public static function getCount($table, $id){
-//
-//        $connection = DAL::getInstance();
-//        $db = $connection->getDB();
-//
-//        $stmt = $db->prepare('SELECT COUNT * FROM ' .  $table . ' WHERE id = :id');
-//        $stmt->execute(['id' => $id]);
-//        $row = $stmt->fetch();
-//        return $row;
-//
-//    }
-
     public static function getCount($table){
 
         $connection = DAL::getInstance();
@@ -153,7 +164,6 @@ class BL {
         $stmt->execute();
 
         return $stmt->fetchColumn();
-
     }
 
     public static function setRoles(){
@@ -169,6 +179,5 @@ class BL {
             $_SESSION['roles'][$row['id']] = $row['name'];
         }
     }
-
 }
 ?>

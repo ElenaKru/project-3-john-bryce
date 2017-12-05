@@ -19,9 +19,15 @@ class StudentModel extends Model implements JsonSerializable {
     //    $this->tableName = 'Customer';
         // $this->id = $params["id"];
         $this->name = $params["name"];
-        $this->phone = $params["phone"];
-        $this->email = $params["email"];
-        $this->image = $params["image"];
+        if(isset($params['phone'])) {
+            $this->phone = $params["phone"];
+        }
+        if(isset($params['email'])) {
+            $this->email = $params["email"];
+        }
+        if(isset($params['image'])) {
+            $this->image = $params["image"];
+        }
     }
 
     public function jsonSerialize() {
@@ -34,5 +40,4 @@ class StudentModel extends Model implements JsonSerializable {
         ];
     }
 }
-
 ?>

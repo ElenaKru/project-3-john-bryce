@@ -1,9 +1,9 @@
-<div id="resultCourse-tpl" >
+<script type="text/template" id="resultCourse-tpl" >
     <div id="resultCourse">
         <b><u>Courses</u></b> <button id="addCourse">+</button><br><br> <!--{{courses.length}} -->
 
         {{#courses}}
-        <span class="courseItem" data-course-id="{{id}}" id="courseItem-{{id}}">
+        <span class="courseItem list-group-item" data-course-id="{{id}}" id="courseItem-{{id}}">
             {{#image}}
             <img src="../uploads/{{image}}" height="15">
             {{/image}}
@@ -14,15 +14,15 @@
         </span>
         {{/courses}}
     </div>
-</div>
+</script>
 
 
-<div id="resultStudent-tpl" >
+<script type="text/template" id="resultStudent-tpl" >
     <div id="resultStudent">
         <b><u>Students</u></b> <button id="addStudent">+</button><br><br>
 
         {{#students}}
-        <span class="studentItem" data-student-id="{{id}}" id="studentItem-{{id}}">
+        <span class="studentItem list-group-item" data-student-id="{{id}}" id="studentItem-{{id}}">
             {{#image}}
             <img src="../uploads/{{image}}" height="15">
             {{/image}}
@@ -33,8 +33,8 @@
         </span>
         {{/students}}
     </div>
-    </div>
-</div>
+</script>
+
 
 
 <div id="mainPanelCourseResume-tpl">
@@ -47,7 +47,7 @@
 </div>
 
 
-<div id="mainPanelCourseContent-tpl">
+<script type="text/template" id="mainPanelCourseContent-tpl">
     <div class="form-group">
         <button id="editCourse" data-course-id="{{id}}" class="btnAdd btn btn-primary">Edit</button><br><br>
     </div>
@@ -74,10 +74,10 @@
     </li>
     {{/course.students}}
 </ul>
-</div>
+</script>
 
 
-<div id="mainPanelStudentContent-tpl">
+<script type="text/template" id="mainPanelStudentContent-tpl">
     <div class="form-group">
         <button id="editStudent" data-student-id="{{id}}" class="btnAdd btn btn-primary">Edit</button><br><br>
     </div>
@@ -88,11 +88,12 @@
     {{^student.image}}
     <img src="../uploads/no-image.png" height="45">
     {{/student.image}}
-    NAME: {{student.name}} PHONE: {{student.phone}} EMAIL: {{student.email}}<br/>
+    NAME: {{student.name}} PHONE: {{student.phone}} EMAIL: {{student.email}}<br>
 
     <h4>Courses:</h4>
     <ul>
         {{#student.courses}}
+            {{#connected}}
         <li>
             {{#image}}
             <img src="../uploads/{{image}}" height="45">
@@ -102,12 +103,13 @@
             {{/image}}
             {{name}}
         </li>
+            {{/connected}}
         {{/student.courses}}
     </ul>
-</div>
+</script>
 
 
-<div id="addCourseTpl">
+<script type="text/template" id="addCourseTpl">
     <form name="addCourseForm" id="addCourseForm" action="../api/api.php" method="{{method}}" enctype="multipart/form-data">
         <input type="hidden" name="id" value="{{course.id}}">
         <input type="hidden" name="ctrl" value="course">
@@ -144,10 +146,10 @@
         <button type="submit" value="delete" id="deleteCourse" class="btnAdd btn btn-primary" name="action">Delete</button>
         </div>
     </form>
-</div>
+</script>
 
 
-<div id="addStudentTpl">
+<script type="text/template" id="addStudentTpl">
     <form name="addStudentForm" id="addStudentForm" action="../api/api.php" method="{{method}}" enctype="multipart/form-data">
         <input type="hidden" name="id" value="{{student.id}}">
         <input type="hidden" name="ctrl" value="student">
@@ -175,9 +177,30 @@
             <input id="studentImage" type="file" name="image" accept="image/jpg, image/jpeg, image/png, image/gif">
         </div>
 
+        <h4>Courses:</h4>
+
+            {{#student.courses}}
+                {{#connected}}
+                    <input type="checkbox" name="courses[]" value="{{id}}" checked >{{name}}<br>
+                {{/connected}}
+
+                {{^connected}}
+                    <input type="checkbox" name="courses[]" value="{{id}}" >{{name}}<br>
+                {{/connected}}
+
+
+            {{/student.courses}}<br>
+
+        {{#courses}}
+
+            <input type="checkbox" name="courses[]" value="{{id}}">{{name}}<br>
+
+        {{/courses}}<br>
+
+
         <div class="form-group">
             <button type="submit" value="add" id="createStudent" class="btnAdd btn btn-primary" name="action">Save</button>
             <button type="submit" value="delete" id="deleteStudent" class="btnAdd btn btn-primary" name="action">Delete</button>
         </div>
     </form>
-</div>
+</script>

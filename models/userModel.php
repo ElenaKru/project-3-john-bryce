@@ -13,6 +13,7 @@ class UserModel extends Model implements JsonSerializable {
         $this->id = $params['id'];
         $this->name = $params['name'];
         $this->role = $params['role'];
+
         if(isset($params['phone'])){
             $this->phone = $params['phone'];
         }
@@ -22,9 +23,6 @@ class UserModel extends Model implements JsonSerializable {
         if(isset($params['image'])){
             $this->image = $params["image"];
         }
-
-
-
     }
 
     public function getName() {
@@ -54,6 +52,16 @@ class UserModel extends Model implements JsonSerializable {
             "image" => $this->image
         ];
     }
-}
 
+    public function jsonSerializeForUpdate() {
+        return [
+            "id" => $this->id,
+            "name" => $this->name,
+            "role" => $this->role,
+            "phone"=>$this->phone,
+            "email"=>$this->email,
+            "image" => $this->image
+        ];
+    }
+}
 ?>
